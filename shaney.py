@@ -68,7 +68,10 @@ def main():
 		print("Reading " + data_dir + filename)
 		f = open(data_dir + filename, encoding="utf-8")
 		words = f.read().split()
-
+		# Skip files that are too short to form a valid context
+		# A context requires at least 'n' words, otherwise the model breaks or becomes inconsistent
+		if len(words) < n:
+			continue
 		starters.append(words[:2])
 		build(contexts, words, 2)
 
